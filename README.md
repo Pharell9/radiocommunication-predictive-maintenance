@@ -1,5 +1,5 @@
 # 📡 POC : MCO & Maintenance Prédictive pour Systèmes Critiques
-![Démo Dashboard](illustration.png) *(Ajoute une capture d'écran de ton dashboard ici)*
+![Démo Dashboard](illustration.png)
 
 Copilote de supervision IA conçu pour anticiper les pannes des équipements de radiocommunication militaire. Il analyse les séries temporelles de télémétrie pour passer d'une maintenance réactive à une approche préventive et prédictive.
 
