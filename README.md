@@ -1,6 +1,12 @@
 # 📡 POC : MCO & Maintenance Prédictive pour Systèmes Critiques
 ![Démo Dashboard](illustration.png)
 
+![Python](https://img.shields.io/badge/Python-3.11%2B-blue?logo=python&logoColor=white)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Random%20Forest-F7931E?logo=scikit-learn&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.30%2B-FF4B4B?logo=streamlit&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Status](https://img.shields.io/badge/Status-POC-orange.svg)
+
 Copilote de supervision IA conçu pour anticiper les pannes des équipements de radiocommunication militaire. Il analyse les séries temporelles de télémétrie pour passer d'une maintenance réactive à une approche préventive et prédictive.
 
 🚀 **[Démo live : Accéder au Centre de Contrôle MCO](https://radiocommunication-predictive-maintenance-bypharell9.streamlit.app/)**
