@@ -16,7 +16,7 @@ def generate_telemetry():
 
     for device_id in range(1, NUM_DEVICES + 1):
         # 20% de chances de tomber en panne
-        will_fail = np.random.choice([True, False], p=[0.2, 0.8])
+        will_fail = np.random.choice([True, False], p=[0.05, 0.95])
         failure_start_hour = np.random.randint(TOTAL_RECORDS_PER_DEVICE - 48, TOTAL_RECORDS_PER_DEVICE) if will_fail else TOTAL_RECORDS_PER_DEVICE + 1
 
         for hour in range(TOTAL_RECORDS_PER_DEVICE):
@@ -34,10 +34,10 @@ def generate_telemetry():
             # Les données chevauchent fortement la classe normale (difficile à détecter)
             if will_fail and (failure_start_hour - 48 <= hour < failure_start_hour):
                 risk_label = 1 # 1 = Alerte
-                temp += np.random.normal(5, 4.0) 
-                packet_loss += abs(np.random.normal(3, 3.0))
+                temp += np.random.normal(2, 4.0) 
+                packet_loss += abs(np.random.normal(1.5, 3.0))
                 latency += abs(np.random.normal(10, 6.0))
-                signal -= np.random.normal(5, 5.0)
+                signal -= np.random.normal(2, 5.0)
                 
             # Panne critique imminente
             elif will_fail and hour >= failure_start_hour:
