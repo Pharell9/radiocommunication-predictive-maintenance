@@ -81,8 +81,8 @@ thales-predictive-maintenance/
 Prérequis : Python 3.11+
 
 1. Cloner le repository
-git clone [https://github.com/Pharell9/thales-predictive-maintenance.git](https://github.com/Pharell9/thales-predictive-maintenance.git)
-cd thales-predictive-maintenance
+git clone https://github.com/Pharell9/radiocommunication-predictive-maintenance.git
+cd radiocommunication-predictive-maintenance
 2. Environnement virtuel et dépendances
 python -m venv venv
 # Windows : venv\Scripts\activate | Mac/Linux : source venv/bin/activate
