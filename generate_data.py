@@ -32,9 +32,9 @@ def generate_telemetry():
 
             # Comportement dégradé (Alerte - 48h avant panne)
             # Les données chevauchent fortement la classe normale (difficile à détecter)
-            if will_fail and (failure_start_hour - 48 <= hour < failure_start_hour):
+            if will_fail and (failure_start_hour - 72 <= hour < failure_start_hour):
                 risk_label = 1 # 1 = Alerte
-                temp += np.random.normal(2, 4.0) 
+                temp += np.random.normal(3.5, 4.0) 
                 packet_loss += abs(np.random.normal(1.5, 3.0))
                 latency += abs(np.random.normal(10, 6.0))
                 signal -= np.random.normal(2, 5.0)
