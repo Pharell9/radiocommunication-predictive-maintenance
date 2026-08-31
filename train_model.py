@@ -18,7 +18,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 # 4. Entraînement du modèle Random Forest
 print("Entraînement de l'IA en cours (Random Forest)...")
-model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1)
+model = RandomForestClassifier(n_estimators=100, random_state=42, n_jobs=-1, class_weight="balanced")
 model.fit(X_train, y_train)
 
 # 5. Évaluation des performances
