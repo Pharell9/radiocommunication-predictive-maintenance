@@ -99,6 +99,28 @@ python train_model.py
 4. Lancer le tableau de bord
 python -m streamlit run app.py
 
+## 💬 Exemples de scénarios détectés
+
+### 🔴 Scénario 1 — Dégradation batterie
+Radio ALPHA-042 : baisse progressive de la tension batterie sur 6 semaines
+(9,2 V → 7,4 V). Modèle : probabilité de panne 87% dans les 15 jours. 
+Recommandation : remplacement préventif planifié.
+
+### 🟠 Scénario 2 — Surchauffe environnementale
+Radio DELTA-011 : température de fonctionnement anormale (58°C moyens
+vs 42°C flotte). Cause probable : exposition solaire directe. 
+Recommandation : inspection terrain sous 48h.
+
+### 🟡 Scénario 3 — Perte de paquets réseau
+Radio BRAVO-078 : latence x3 et perte de paquets 12% depuis 72h.
+Cause probable : brouillage ou dégradation antenne. 
+Recommandation : diagnostic terrain sous 7j.
+
+### ✅ Scénario 4 — Faux positif écarté
+Radio ECHO-025 : pic de température ponctuel (3h). Modèle : 
+probabilité de panne 15% (pas d'alerte). Explication : profil dynamique 
+compatible avec exercice terrain, pas dégradation matérielle.
+
 📊 Résultats & Évaluation
 Précision du modèle (Accuracy) : 100 %
 Note de transparence : Ce score parfait est assumé. Il s'explique par la nature synthétique et déterministe du jeu de données (les anomalies suivent des règles mathématiques programmées dans generate_data.py). L'objectif de ce POC est de valider l'architecture logicielle de bout en bout. Sur le terrain, face à des données bruitées, le score s'ajusterait naturellement, mais l'architecture de supervision resterait identique.
