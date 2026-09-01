@@ -45,18 +45,18 @@ if radios_at_risk.empty:
 else:
     st.error(f"⚠️ {len(radios_at_risk)} équipement(s) nécessitent une attention immédiate !")
     
-    # Transformation des labels (1, 2) en texte lisible pour le tableau
     status_map = {1: "🟡 Alerte précoce", 2: "🔴 Panne imminente"}
     radios_at_risk["Statut IA"] = radios_at_risk["prediction"].map(status_map)
     
-    # Affichage d'un tableau propre
     st.dataframe(
         radios_at_risk[["device_id", "Statut IA", "timestamp"]].reset_index(drop=True),
-        use_container_width=True
+        width="stretch"
     )
 
 st.markdown("---")
+
 # ==========================================
+# (Ici commence ton code existant avec le menu st.selectbox...)
 
 # Sidebar : Sélection de l'équipement
 st.sidebar.header("🎯 Filtres")
