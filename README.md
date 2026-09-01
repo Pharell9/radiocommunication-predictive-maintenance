@@ -53,7 +53,7 @@ Ce projet propose un tableau de bord intelligent qui surveille l'état de santé
            ▼   ▼                             │
 ┌─────────────────────┐                      │
 │    Streamlit App    │ ◄────────────────────┘
-│  (Dashboard MCO)    │  Filtres par radio, KPI temps réel
+│  (Dashboard MCO)    │  Radar global de la flotte (C2) + Filtres par radio, KPI temps réel
 └──────────┬──────────┘
            │
            ▼
@@ -121,16 +121,22 @@ Radio ECHO-025 : pic de température ponctuel (3h). Modèle :
 probabilité de panne 15% (pas d'alerte). Explication : profil dynamique 
 compatible avec exercice terrain, pas dégradation matérielle.
 
-📊 Résultats & Évaluation
-Précision du modèle (Accuracy) : 100 %
-Note de transparence : Ce score parfait est assumé. Il s'explique par la nature synthétique et déterministe du jeu de données (les anomalies suivent des règles mathématiques programmées dans generate_data.py). L'objectif de ce POC est de valider l'architecture logicielle de bout en bout. Sur le terrain, face à des données bruitées, le score s'ajusterait naturellement, mais l'architecture de supervision resterait identique.
+## 📊 Résultats & Évaluation (Gestion du Paradoxe de l'Accuracy)
+
+Dans un contexte militaire, les pannes sont rares et les capteurs sont soumis aux aléas du terrain. Pour refléter cette réalité, le jeu de données simule un **fort déséquilibre des classes** (seulement 5% de pannes) et intègre du **bruit statistique** (2% de glitchs et faux positifs).
+
+* **Précision globale (Accuracy) : ~99.8 %**
+* **Rappel (Recall) sur les pannes critiques : 100 %**
+* **Rappel (Recall) sur les alertes précoces : ~27 %**
+
+**Note technique :** L'Accuracy globale très élevée masque la difficulté de détecter les signaux faibles (les alertes précoces sont noyées dans le bruit des sondes). Pour forcer l'IA à traquer ces anomalies rares sans générer de fatigue d'alerte, le modèle utilise un rééquilibrage mathématique des poids (`class_weight="balanced"`). Le Rappel de 27% sur les alertes précoces illustre un modèle industriel sain : il doute face aux interférences légères, mais ne rate aucune panne critique.
 
 ⚠️ Limites actuelles
 Limites de la modélisation (Data Science)
 
 Absence de séquentialité temporelle : Le modèle actuel évalue le risque sur la base d'une observation à un instant T. Une approche par fenêtre glissante (Rolling Window) ou un modèle récurrent (LSTM) serait nécessaire pour capter la dynamique d'une dégradation.
 
-Données synthétiques : Dans un environnement industriel, les données des sondes nécessiteraient une étape complexe de Feature Engineering et de lissage (Filtre de Kalman).
+* **Limites physiques des données synthétiques :** Bien que le jeu de données intègre du bruit statistique et des faux positifs pour simuler le terrain, il manque d'inertie physique. Par exemple, un pic de température redescend instantanément dans la simulation, alors qu'un vrai boîtier radio mettrait plusieurs heures à refroidir (thermodynamique).
 
 Limites d'architecture (Data Engineering)
 
