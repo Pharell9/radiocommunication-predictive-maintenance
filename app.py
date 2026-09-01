@@ -21,6 +21,43 @@ model = load_model()
 st.title("📡 Centre de Contrôle MCO (Maintenance Prédictive)")
 st.markdown("Surveillance des équipements de radiocommunication et anticipation des pannes par IA.")
 
+st.title("📡 Centre de Contrôle MCO - Radiocommunications")
+st.markdown("---")
+
+# ==========================================
+# 🚨 MODULE D'ALERTE GLOBALE
+# ==========================================
+st.subheader("🚨 Vue d'ensemble de la flotte (Temps Réel)")
+
+# 1. Isoler le dernier relevé temporel pour chaque radio
+latest_data = df.sort_values("timestamp").groupby("device_id").tail(1).copy()
+
+# 2. Prédire l'état actuel de toute la flotte
+features = ["temperature_c", "battery_level_v", "signal_strength_dbm", "packet_loss_pct", "encryption_latency_ms"]
+latest_data["prediction"] = model.predict(latest_data[features])
+
+# 3. Filtrer uniquement les équipements qui nécessitent une intervention (Prédiction = 1 ou 2)
+radios_at_risk = latest_data[latest_data["prediction"] > 0][["device_id", "timestamp", "prediction"]]
+
+# 4. Affichage dynamique conditionnel
+if radios_at_risk.empty:
+    st.success("✅ Flotte 100% Opérationnelle : Aucune anomalie détectée sur le dernier relevé.")
+else:
+    st.error(f"⚠️ {len(radios_at_risk)} équipement(s) nécessitent une attention immédiate !")
+    
+    # Transformation des labels (1, 2) en texte lisible pour le tableau
+    status_map = {1: "🟡 Alerte précoce", 2: "🔴 Panne imminente"}
+    radios_at_risk["Statut IA"] = radios_at_risk["prediction"].map(status_map)
+    
+    # Affichage d'un tableau propre
+    st.dataframe(
+        radios_at_risk[["device_id", "Statut IA", "timestamp"]].reset_index(drop=True),
+        use_container_width=True
+    )
+
+st.markdown("---")
+# ==========================================
+
 # Sidebar : Sélection de l'équipement
 st.sidebar.header("🎯 Filtres")
 device_list = df["device_id"].unique()
